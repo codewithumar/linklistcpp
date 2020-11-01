@@ -13,17 +13,17 @@ private:
 public:
     linked_list()
     {
-        head = NULL;
-        tail = NULL;
+        head = nullptr;
+        tail = nullptr;
     }
 
     void add_node()
     {
         tmp = new node;
       	cin>> tmp->data;
-        tmp->next = NULL;
+        tmp->next = nullptr;
 
-        if(head == NULL)
+        if(head == nullptr)
         {
             head = tmp;
             tail = tmp;
@@ -37,7 +37,7 @@ public:
     void print()
 	{
 		tmp=head;
-		while(tmp!=NULL)
+		while(tmp!=nullptr)
 		{
 			cout<<tmp->data;
 			tmp=tmp->next;
