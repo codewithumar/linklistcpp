@@ -1,49 +1,49 @@
 #include <iostream>
-using namespace std;
+#include <memory>
+
 struct node
 {
     char data;
-    node *next;
+    std::unique_ptr<node> next;
 };
 
 class linked_list
 {
 private:
-    node *head,*tail,*tmp;
+    std::unique_ptr<node> head;
+    node* tail;
 public:
     linked_list()
+    : tail( nullptr )
     {
-        head = nullptr;
-        tail = nullptr;
     }
 
     void add_node()
     {
-        tmp = new node;
-      	cin>> tmp->data;
-        tmp->next = nullptr;
+        std::unique_ptr<node> tmp(new node());
+        std::cin >> tmp->data;
 
         if(head == nullptr)
         {
-            head = tmp;
-            tail = tmp;
+            head = std::move(tmp);
+            tail = head.get();
         }
         else
         {
-            tail->next = tmp;
-            tail = tail->next;
+            tail->next = std::move(tmp);
+            tail = tail->next.get();
         }
     }
     void print()
-	{
-		tmp=head;
-		while(tmp!=nullptr)
-		{
-			cout<<tmp->data;
-			tmp=tmp->next;
-			cout<<endl;
-		}		
-	}
+    {
+        auto tmp=head.get();
+        while(tmp!=nullptr)
+        {
+            std::cout << tmp->data;
+            tmp = tmp->next.get();
+            std::cout << "\n";
+        }       
+    }
 };
 int main()
 {
@@ -51,7 +51,7 @@ int main()
     a.add_node();
     a.add_node();
     a.add_node();
-	a.add_node();
-	a.print();
+    a.add_node();
+    a.print();
     return 0;
 }
