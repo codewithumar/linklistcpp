@@ -20,7 +20,7 @@ public:
 
     void add_node()
     {
-        std::unique_ptr<node> tmp(new node());
+        auto tmp = std::make_unique<node>();
         std::cin >> tmp->data;
 
         if(head == nullptr)
